@@ -1,0 +1,270 @@
+﻿1. 다음 프로그램을 완성하시오
+
+(1)부모클래스 : Entry
+   필드명 : String word;
+   메소드 : Entry();
+            Entry(String w);                       
+            public void printView();               //약어출력
+
+(2)자식클래스 : SubEntry   (Entry를 상속받음)
+   필드명 : String definition; 
+            int year;
+   메소드 : SubEntry(String w);                 
+            SubEntry(String w, String d, int y);  //SubEntry(String w)호출
+            public void printView();              //원어, 시기출력
+
+(3)main()함수가 있는 클래스에서
+    new SubEntry("OOP","Object Oriented Programming", 1991);
+
+
+(4)출력
+
+*****약어사전******
+약어 : OOP
+원어 : Object Oriented Programming
+시기 : 1991년
+
+
+package inheritance;
+//부모클래스 Entry
+public class Entry {
+	//속성
+	String word; //약어를 받는 변수 Word , 인스턴스변수임
+	
+	//기본생성자, 뒤의 매개변수를 받는 생성자때문에 입력해야 나중에 호출 가능
+	Entry() { 
+	}
+	//매개변수 w를 갖는 생성자
+	Entry(String w){
+		word = w; //생성자 밖, 클래스 안 인스턴스 변수word에 매개변수 w값을 넣음
+	}
+	//약어를 출력하는 메소드 , 매개변수가 없고 리턴값이 없는 인스턴스 메소드임
+	public void printView() {
+		System.out.println("*****약어 사전*****");
+		System.out.println("약어 :"+ word);
+	}
+	
+}
+
+package inheritance;
+//부모클래스 Entry를 자식클래스 SubEntry에 상속
+public class SubEntry extends Entry {
+	//속성
+	String definition; //원어를 갖는 변수 definition
+	int year;          //시기를 갖는 변수 year
+	
+	//매개변수 w를 갖는 생성자 SubEntry
+	SubEntry(String w){
+		//super() : 기본 생성자함수를 부모클래스에서 입력해 주었기 때문에 보이지 않아도 자동으로 super()가 만들어져 있음
+		super(w);
+		//word = w; // 부모클래스에 있는 word변수를 가져오기 위해 super사용, 이후 매개변수 w값을 부모클래스 변수 word에 입력
+	}
+	//세개의 매개변수를 갖는 생성자 
+	SubEntry(String w, String d, int y){
+		super(w);        //부모생성자에 있는 변수 w를 가져오기 위해 super()사용
+		definition = d; //매개변수 d값은 클래스안에 있는 인스턴스 변수 definition에 입력
+		year = y;      //매개변수 y값은 클래스안에 있는 인스턴스 변수 year에 입력
+	}
+	//약어, 원어, 시기를 출력하는 메소드 / 부모클래스에 있는 메소드 오버라이딩
+	//매개변수가 없고 리턴값이 없는 메소드
+	public void printView() {
+		System.out.println("*****약어 사전*****");
+		System.out.println("약어 :"+word);
+		System.out.println("원어 :"+definition);
+		System.out.println("시기 :"+year+"년");
+		
+	}
+}
+
+//메인메소드
+package inheritance;
+
+public class EntryTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		SubEntry b = new SubEntry("OOP", "Object Oriented Programming", 1991);
+		// (약어, 원어, 시기 순서)
+		b.printView();// SubEntry에서 출력하는 메소드
+		
+	}
+
+}
+
+
+
+
+
+
+2. 다음 프로그램을 완성하시오
+
+(1)Super클래스명 : Health
+   필드명 : char gender(성별)
+            double tall (신장)
+            double weight(체중)
+   생성자 : Health() - 초기화
+	  Health(성별,신장,체중)
+   메서드 : 
+            output1() - 출력
+
+(2)SubHealth클래스 에서 Health를 상속받음
+   필드명 : double s_weight (표준체중)
+            double fat      (비만도)
+            String result   (결과값)
+   생성자 : s_weight = 0.0; (초기화작업)
+            fat = 0.0;
+            result = null;
+   메소드 : calculate() - 비만도 계산
+            output2()  - 출력
+
+(3) ★표준체중계산법★
+    남성 : 표준체중 = (신장-100)*0.9
+    여성 : 표준체중 = (신장-100)*0.85
+
+    비만도 = 현재체중(Kg)/표준체중(Kg)*100
+    --------------------------------------------------
+    90%이하  : 저체중               121-130% : 경도비만
+    91 -110% : 정상(표준체중)       131-150% : 중도비만
+    111-120% : 과체중               150%     : 고도비만
+
+(4)출력
+
+   ***** 비만도 Check *****
+   성별(M/F) : M          <---남(M) / 여(F)
+   신장(Cm) : 175.3
+   체중(Kg)  : 95.45
+
+   성별 - M 
+   신장 - 175.3Cm
+   체중 - 95.45Kg
+
+   당신은 비만도 140.84이고,  중도비만 입니다.
+
+
+Health에서 성별, 신장, 체중을 SubHealth가 받아서 
+표준체중을 계산하고, 비만도를 결정해서 비만을 출력함
+호출은 SubHealth로 하고 값은 스캐너로 입력받은 값을 넣음 
+
+package inheritance;
+//부모클래스 
+public class Health {
+	//속성
+	char gender;   //성별값을 갖는 gender변수 선언, 인스턴스변수
+	double tall;   //신장값을 갖는 tall변수 선언, 인스턴스 변수
+	double weight; //체중값을 갖는 weigth변수 선언, 인스턴스 변수
+	
+	//기본생성자(매개변수가 없음)
+	Health(){
+		
+	}
+	//매개변수를 세개를 가지고 있는 생성자 , 성별,신장,체중을 입력받음
+	Health(char gender, double tall, double weight){
+		this.gender = gender; //입력받은 gender는 인스턴스변수gender(메소드 밖 클래스에 선언된 변수)
+		this.tall = tall;    //입력받은 tall은 인스턴스변수tall(메소드 밖 클래스에 선언된 변수)
+		this.weight = weight;//입력받은 weight는 인스턴스변수weight(메소드 밖 클래스에 선언된 변수)
+	}
+	
+	//결과 출력하는 메소드, 매개변수가 없고 리턴도 없는 인스턴스 메소드
+	void output1() {
+		System.out.println("성별 - "+gender);
+		System.out.println("신장 - " + tall +"Cm");
+		System.out.println("체중 - " + weight +"Kg");		
+	}
+
+}
+
+package inheritance;
+
+//부모클래스 Health에서 자식클래스SubHealth로 상속
+public class SubHealth extends Health {
+	// 속성
+	double s_weight; // 자식클래스 표준체중값을 갖는 s_weight변수 선언, 인스턴스변수
+	double fat; // 자식클래스 비만도 값을 갖는 fat변수 선언, 인스턴스 변수
+	String result;// 자식클래스 비만결과값을 갖는 result변수 선언, 인스턴스 변수
+
+	// 기본생성자
+	SubHealth() {
+		// super(); //Health 기본생성자가 입력되어 있기 때문에 super()를 직접 입력하지 않아도 기본적으로 들어가있음
+		s_weight = 0.0;// 아무것도 입력 안할 시 기본 표준체중값
+		fat = 0.0; // 아무것도 입력 안할 시 기본 비만도 값
+		result = null;// 아무것도 입력 안할 시 기본 결과 값
+	}
+	
+	// 3개의 매개변수를 가지는 생성자
+	SubHealth(char gender, double tall, double weight) { 
+		super(gender, tall, weight); // Health생성자에 있는 매개변수를 불러옴 super.gender = gender;와 같은 의미
+	}
+	
+	// 표준체중, 비만도 계산하는 메소드
+	void calculate() {
+		//성별에 따른 표준체중계산
+		if (gender == 'M') { // 성별이 "M"이면 (char값은 String과 다르게 equals를 안하고 == 사용, char값은 ''(""은 사용 불가))
+			s_weight = (tall - 100) * 0.9; // 표준체중 계산
+		} else if (gender == 'F') { // 성별이 "W"이면 (char값은 String과 다르게 equals를 안하고 == 사용, char값은 ''(""은 사용 불가))
+			s_weight = (tall - 100) * 0.85; // 표준체중 계산
+		}
+		// 비만도계산
+		fat = (weight / s_weight) * 100; 
+		// 비만도에 따른 결과값을 나타내는 조건문
+		if (fat <= 90) { 
+			result = "저체중";
+		} else if (fat <= 110) {
+			result = "정상(표준체중)";
+		} else if (fat <= 120) {
+			result = "과체중";
+		} else if (fat <= 130) {
+			result = "경도비만";
+		} else if (fat <= 150) {
+			result = "중도비만";
+		} else if (fat > 150) {
+			result = "고도비만";
+		}
+	}
+	
+	// 출력, 부모클래스에 대한 오버라이딩
+	void output1() {
+		calculate(); // output1호출시 calculate메서드 자동 호출
+		System.out.println("성별 - " + gender);
+		System.out.println("신장 - " + tall + "Cm");
+		System.out.println("체중 - " + weight + "Kg");
+		System.out.println("당신은 비만도 " + Math.round(fat * 100) / 100d + "이고, " + result + " 입니다.");
+	}
+}
+
+
+package inheritance;
+//메인메소드
+import java.util.Scanner;
+
+public class HealthTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		//메인메소드
+		Scanner sc = new Scanner(System.in); //스캐너, 반드시 import 해줌
+		
+		char gender; //스캐너를 입력받기 위한 gender변수
+		double tall; //스캐너를 입력받기 위한 tall변수
+		double weight;//스캐너를 입력받기 위한 weight변수
+		
+		//출력문
+		System.out.println("***** 비만도 *****");
+		System.out.print("성별(M/F) : ");
+		gender = sc.next().charAt(0); //gender변수에 첫번째 입력값을 넣음, SubHealth의 gender값
+		//char값은 스캐너 입력값에 없음, 따라서 스트링타입의 next()에서 charAt(0)으로 첫번째 값을 가져옴
+		System.out.print("신장(Cm) : " );
+		tall = sc.nextDouble();//tall변수에 첫번째 입력값을 넣음, SubHealth의 tall값
+		System.out.print("체중(Kg) : " );
+		weight = sc.nextDouble();//weight변수에 첫번째 입력값을 넣음, SubHealth의 weight값
+		
+		//SubHealth클래스의 주소 h 호출
+		SubHealth h = new SubHealth(Character.toUpperCase(gender),tall,weight);
+		                           //스캐너입력값:((대문자로변경)성별 , 신장, 체중값) 
+		//SubHealth h = new SubHealth('M', 175.3, 95.45);
+		h.output1(); //SubHealth의 output1 출력
+
+	}
+
+}
+

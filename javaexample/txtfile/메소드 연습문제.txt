@@ -1,0 +1,241 @@
+1. 다음과 같은 멤버변수를 갖는 Calculator클래스를 정의한 후
+다음과 같이 정의된 네 개의 메서드getAdd(), getSub(), getMul(), getDiv()를 추가하여 임의의 정수와
+연산자를키보드로 입력 받아서 처리 될 수 있게 CalculatorTest클래스를 완성하시오.(각 변수의 초기화는 임의의 값 설정)
+getAdd()은 덧셈를 계산하는 메소드
+getSub()은 뺄셈를 계산하는 메소드
+getMul()은 곱셈를 계산하는 메소드
+getDiv()은 나눗셈를 계산하는 메소드
+* if와 switch 연습문제중 2번문제를 참고하여 메소드로 처리 *
+
+결과
+연산하고자 하는 두 정수값과 연산자를 입력하세요.? 7 + 3
+연산결과는 10입니다.
+
+연산하고자 하는 두 정수값과 연산자를 입력하세요.? 7 - 3
+연산결과는 4입니다.
+
+연산하고자 하는 두 정수값과 연산자를 입력하세요.? 7 * 3
+연산결과는 21입니다.
+
+연산하고자 하는 두 정수값과 연산자를 입력하세요.? 7 / 3
+연산결과는 2.3333333입니다.
+
+Calculator 클래스
+//1번
+int getAdd(int a,int b) {
+	return a+b; //a+b를 반환
+}
+int getSub(int a,int b) {
+	return a-b; //a-b를 반환
+}
+ int getMul(int a,int b) {
+	return a*b; //a*b를 반환
+}
+double getDiv(int a,int b) {
+	return a/b; //a/b를 반환
+}
+
+CalculatorTest 메인메소드
+Calculator calcu = new Calculator();
+if(b.equals("+")) {
+	System.out.println("연산결과는"+calcu.getAdd(a, c)+"입니다.");
+}else if(b.equals("-")) {
+	System.out.println("연산결과는"+calcu.getSub(a, c)+"입니다.");
+}else if(b.equals("*")) {
+	System.out.println("연산결과는"+calcu.getMul(a, c)+"입니다.");
+}else if(b.equals("/")) {
+	System.out.println("연산결과는"+calcu.getDiv(a, c)+"입니다.");
+}else {
+	System.out.println("+, -, *, / 중 하나만 입력하세요.");
+}
+
+
+
+2. 다음과 같은 멤버변수를 갖는 Calculator클래스를 정의한 후
+다음과 같이 정의된 하나의 메서드(cal())만으로 임의의 정수와
+연산자를키보드로 입력 받아서 처리 될 수 있게 CalculatorTest클래스를 완성하시오.(각 변수의 초기화는 임의의 값 설정)
+Cal() 메소드는 덧셈,뺄셈,곱셈,나눗셈 계산하는 메소드
+
+* 메소드 오버로딩을 참고하세요. *
+
+Calculator 클래스
+//2번
+//함수(메소드)선언
+//리턴값이 실수이기 때문에 double선언, 실수 num1, 문자열 s, 실수 num2를 매개변수로 사용,
+//이후 cal함수를 쓰기 위해서는 타입에 맞는 매개변수를 순서대로 입력
+	
+static double cal(double num1, String s, double num2) { 
+	double r = 0; //함수 안에 선언
+	//만약 함수 밖에 선언하고 싶을 경우 반환을 하기 위해 선언문 앞에 static으로 클래스 변수로 바꿔주거나 함수를 인스턴스메소드로 바꿔줘야 함(static제거)
+	if(s.equals("+")) { //문자열 비교에서 같은 문자열을 찾으려면 +, 같은 주소를 찾으려면 == , 만약 s가 +라면
+		r=num1+num2;  //매개변수 num1,num2 두 수를 합해라
+	}else if(s.equals("-")) { //만약 s문자가 -라면
+		r= num1-num2; //매개변수 num1,num2 두 수를 빼라
+	}else if(s.equals("*")) { //만약 s가 *라면
+		r= num1*num2; //매개변수 num1,num2 두 수를 곱해라
+	}else if(s.equals("/")) { //만약 s가 /라면
+		 r= num1/num2; //매개변수 num1,num2 두 수를 나누어라
+	}else { //s가 없거나 다른 문자라면
+	System.out.println("+, -, *, / 중 하나만 입력하세요.");//출력
+	}
+	return r; //r을 반환		
+}
+static double cal(int num1, String s, int num2) { //오버로딩, 매개변수를 변화시킴
+	double r = 0;
+	if(s.equals("+")) {
+		r=num1+num2; 
+	}else if(s.equals("-")) {
+		r= num1-num2;
+	}else if(s.equals("*")) {
+		r= num1*num2;
+	}else if(s.equals("/")) {
+		r= num1/num2;
+	}else {
+		System.out.println("+, -, *, / 중 하나만 입력하세요.");
+	}
+	return r;		
+}
+static double cal(double num1, String s, int num2) { //오버로딩
+	double r = 0;
+	if(s.equals("+")) {
+		 r=num1+num2; 
+	}else if(s.equals("-")) {
+		 r= num1-num2;
+	}else if(s.equals("*")) {
+		 r= num1*num2;
+	}else if(s.equals("/")) {
+		 r= num1/num2;
+		}else {
+		System.out.println("+, -, *, / 중 하나만 입력하세요.");
+	}
+	return r;		
+}
+static double cal(int num1, String s, double num2) { //오버로딩
+	double r = 0;
+	if(s.equals("+")) {
+		 r=num1+num2; 
+	}else if(s.equals("-")) {
+		 r= num1-num2;
+	}else if(s.equals("*")) {
+		 r= num1*num2;
+	}else if(s.equals("/")) {
+		 r= num1/num2;
+	}else {
+		System.out.println("+, -, *, / 중 하나만 입력하세요.");
+	}
+	return r;		
+}
+
+CalculatorTest 메인메소드
+System.out.println("연산결과는"+Calculator.cal(a, b, c)+"입니다.");
+
+
+3. 두 정수 a, b가 주어졌을 때 a와 b 사이에 속한 모든 정수의 합을 리턴하는 함수, solution을 완성하세요. 
+예를 들어 a = 3, b = 5인 경우, 3 + 4 + 5 = 12이므로 12를 리턴합니다.
+
+입출력 예
+----------------------
+a b return
+----------------------
+3 5 12
+3 3 3
+5 3 12
+
+Calculator 클래스
+	//3번
+	//solution 메소드 생성, 반환값을 정수로 가지기 때문에 int타입으로 선언
+	//인스턴스 변수
+	int solution(int a, int b) { 
+		int sum = 0; //합을 구하는 변수 r선언 및 초기화
+		if(a>b) {
+			for(int i=b;i<=a;i++) {
+				sum +=i;
+			}//조건문 끝
+		}else {
+			for(int i=a;i<=b;i++) {
+				sum +=i;
+			}//반복문 끝
+		}//조건문 끝
+		return sum;//r반환
+	}
+
+CalculatorTest 메인메소드
+		Scanner sc = new Scanner(System.in);
+		Calculator sol = new Calculator();
+		System.out.println("값을 입력하세요");
+		int fst = sc.nextInt();
+		int sec = sc.nextInt();
+		System.out.println("--------------");
+		System.out.println(fst+" "+sec+" return");
+		System.out.println("--------------");
+		System.out.println(fst+" "+sec+" "+sol.solution(fst,sec));
+	
+
+4. 다음과 같은 멤버변수를 갖는 Student클래스를 정의하시오.
+ 타 입	 변수명 	 설 명
+ String	 name	 학생이름
+ int	 ban	 반
+ int	 no	 번호
+ int	 kor	 국어점수
+ int	 eng	 영어점수
+ int	 math	 수학점수
+
+Student클래스
+public class Student{
+	String name = "";
+	 int ban = 0; //static변수 선언시 static메소드에서만 반환값 사용가능, 인스턴스 변수선언시 인스턴스메소드에서마녀 반환갑 사용가능
+	 int no = 0; //다른 패키지에도 사용하려면 앞에 public 사용
+	 int kor = 0;
+	 int eng = 0;
+	 int math = 0;
+}
+
+
+5. 문제4-1에서 정의한 Student클래스에 다음과 같이 정의된 두 개의 메서드getTotal()과 getAverage()를 추가하시오.
+
+1. 메서드명 : getTotal
+기 능 : 국어(kor), 영어(eng), 수학(math)의 점수를 모두 더해서 반환한다.
+반환타입 : int
+매개변수 : 없음
+2. 메서드명 : getAverage
+기 능 : 총점(국어점수+영어점수+수학점수)을 과목수로 나눈 평균을 구한다.
+소수점 둘째자리에서 반올림할 것.
+반환타입 : float
+매개변수 : 없음
+
+Student 클래스
+	 int getTotal() {
+		return (kor+eng+math);
+	}
+	 
+	 float getAverage() {
+		return (kor+eng+math)/3f;
+	}
+
+메인메소드
+		//4,5번
+		Student lili = new Student(); //lili 라는 주소를 새로 만듬, 인스턴스 메소드일 때 사용
+		lili.name = "Li"; //lili 이름
+		lili.kor = 20; //lili kor점수
+		lili.eng = 77; //lili eng점수
+		lili.math = 88;//lili math점수
+		System.out.println(lili.getTotal());//kor+eng+math값 , Student클래스 값과는 별개로 lili의 값(여기서는 kor+eng+math)으로 저장이 됨
+		System.out.printf("%.2f \n",lili.getAverage()); //소수 둘째점 자리에서 반올림(printf 문법 사용)
+		System.out.println(Math.round(lili.getAverage()*10)/10.0); //소수 첫째점 자리에서 반올림(Math.round사용)
+		//만약 lili가 아니라 다른 주소로 할 경우 변수에 저장되어 있는 값을 호출 할 수 없음
+		
+		Student mimi = new Student();
+		System.out.println(mimi.getTotal());//0 , mimi라는 새로운 주소이며 값을 적용하지 않을 시 클래스에 있는 기본 값들이 적용
+		//lili 값을 불러 올 수 없다.
+		mimi.kor = 50;
+		mimi.eng = 68;
+		mimi.math = 88;
+		System.out.println(mimi.getAverage());
+		
+		
+		//+)클래스 변수로 쓸 경우(앞에 static사용)
+		Student.kor = 100; //클래스의 그 값 자체를 변경
+		Student.eng = 100;
+		Student.math = 100;
+		System.out.println(Student.getAverage());
+		System.out.println(Student.getTotal());

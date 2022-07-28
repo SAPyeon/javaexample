@@ -1,0 +1,646 @@
+자바 객체배열
+int[] a = new int[5];
+a배열에는 정수만 입력
+
+객체타입을 배열로 생성
+ex) ObjectArray 객체로 가정
+ObjectArray[] a = new ObjectArray[5];
+a배열에는 ObjectArray 클래스에 선언되어 있는 변수 및 메서드에만 접근
+
+객체배열 예제
+package array;
+
+public class ObjectArrayTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//일반 배열생성
+		int[] array = {10,20,30,40,50,60,70,80};
+		//배열값 입력
+		array[0] = 10;
+		array[1] = 20;
+		array[2] = 30;
+		array[3] = 40;
+		array[4] = 50;
+		array[5] = 60;
+		array[6] = 70;
+		array[7] = 80;
+		
+		//ObjectArray 클래스에 객체타입을 배열로 불러옴
+		//타입대신에 사용할 클래스명을 입력하여 사용
+		ObjectArray[] objarray = new ObjectArray[7]; //objarray에 새로운 주소를 부여
+		
+		//배열값 입력, 입력할 배열 인덱스와 함께 클래스 안에 있는 변수만을 입력하여 배열값에 저장, 이 때 배열값은 변수와 같은 타입이어야 함
+		//배열의 값이 여러개이기 때문에 또다른 주소를 부여하여 그 주소에 입력값이 넣어지게 함
+		//타입 대신에 클래스 이름이 들어갔기 때문에 값을 불러올 수 없어서 새로운 주소를 부여해서 인스턴스 변수를 가져옴
+		objarray[0] = new ObjectArray(); 
+		objarray[0].name = "정자바";
+		objarray[0].score = 100;
+		
+		objarray[1] = new ObjectArray();
+		objarray[1].name = "최씨";
+		objarray[1].score = 88;
+		
+		objarray[2] = new ObjectArray();
+		objarray[2].name = "이씨샵";
+		objarray[2].score = 90;
+		
+		objarray[3] = new ObjectArray();
+		objarray[3].name = "이자바";
+		objarray[3].score = 83;
+		
+		objarray[4] = new ObjectArray();
+		objarray[4].name = "장씨";
+		objarray[4].score = 71;
+		
+		objarray[5] = new ObjectArray();
+		objarray[5].name = "오씨샵";
+		objarray[5].score = 25;
+		
+		objarray[6] = new ObjectArray();
+		objarray[6].name = "김자바";
+		objarray[6].score = 87;
+		
+		for(int i = 0; i<objarray.length; i++) {
+			if(objarray[i]==null) {
+				break;
+			}
+			System.out.println(objarray[i].name);
+			System.out.println(objarray[i].score);
+		}		
+	}
+
+}
+
+------------------------------------------------------------------------------------------------------------------------
+
+객체지향언어 특징
+
+1>상속성
+부모클래스에 있는 속성을 자식클래스에서도 사용할 수 있도록 하는 것
+부모클래스의 기능을 확장
+ ex) class A extends B{}
+ ---B클래스에 있는 모든 속성과 메서드는 A클래스에서 상속받음
+package inheritance;
+//부모클래스
+public class Parent {
+	int x = 10;
+	
+
+}
+
+package inheritance;
+
+//부모클래스Parent를 자식클래스 Child가 상속받음
+public class Child extends Parent {
+
+	// int x = 10; 이 있다고 생각
+	int x = 20;
+
+	void method() {
+
+		System.out.println("x=" + x); // 자식클래스 안에 변수x 값(미입력시 상속값) //x=20
+		System.out.println("this.x=" + this.x); // 자식클래스 안에 변수x 값(미입력시 상속값) //this.x=20
+		System.out.println("super.x=" + super.x); // Parent 안에 변수x 값//super.x=10
+	}
+}
+
+//메인메소드
+		Child c = new Child();
+		c.method();
+//		x=20
+//		this.x=20
+//		super.x=10
+
+
+---------------------------------------------------------------------------------------
+오버라이딩
+상속을 해야지만 가능한 개념
+부모클래스의 메소드를 자식클래스가 똑같이 구현하고 그 내용을 변경하여 메소드를 덮어쓰는 것
+
+오버라이딩의 조건
+1.메소드의 이름이 같아야 함
+2.매개변수가 같아야 함
+3.리턴타입이 같아야 함
+
+오버로딩 vs 오버라이딩
+1. 오버로딩은 상속하고 관계가 없음 // 오버라이딩은 상속이어야 개념이 성립됨
+2. 오버로딩, 오버라이딩 둘 다 메소드 명이 같아야 함
+3. 오버로딩은 매개변수가 달라야 함 // 오버라이딩은 매개변수가 같아야 함
+4. 오버로딩은 반환타입은 고려하지 않음 // 오버라이딩은 반환타입이 같아야 함
+5. 오버로딩은 기존에 있는 것에 추가하는 개념 // 오버라이딩은 기존에 있는 것을 변경하는 개념임
+
+
+package inheritance;
+//부모클래스 Overriding
+public class Overriding {
+	int x;
+	int y;
+	
+	int add() {
+		return x+y;
+	}
+}
+
+
+package inheritance;
+//Overriding을 상속받음
+public class OverridingChild extends Overriding {
+	int z;
+	//오버라이딩 
+	//조건 1 : 메소드의 이름이 같아야 함
+	//조건 2 : 매개변수가 같아야 함
+	//조건 3 : 리턴타입이 같아야 함
+	//상속받은 메소드 add()을 새롭게 바꿈
+	int add() {
+		return x+y+z;
+	}
+}
+
+//메인메소드
+package inheritance;
+
+public class OverridingTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		OverridingChild ad = new OverridingChild();
+		ad.x = 10;//부모클래스 Overriding의 변수 x
+		ad.y = 20;//부모클래스 Overriding의 변수 y
+		ad.z = 30;//자식클래스 OverridingChile의 변수 z
+		System.out.println(ad.add());//60 : 오버라이딩으로 x+y+z가 됨
+		
+		
+	}
+
+}
+
+
+
+--------------------------------------------------------
+super. / super()
+부모클래스에 있는 생성자를 자식클래스에 상속하기 위해서 사용
+super. : 부모클래스에 있는 변수값을 가져옴, 자식클래스에 있는 값을 무시
+super() : 부모클래스의 생성자를 불러와서 생성자를 만들 때 사용, ()안에 아무것도 없을 시 기본생성자를 상속받으며 ()안에 매개변수를 써줘야 매개변수 있는 생성자를 상속받을 수 있음
+
+package inheritance;
+//부모클래스Point2D
+public class Point2D {
+	int x;
+	int y;
+	
+	Point2D(int x, int y){
+		this.x = x;
+		this.y = y;
+	}
+	
+	String getLocation() {
+		return "x : " + x + "y : " + y;
+	}
+}
+
+package inheritance;
+//생성자는 기본적으로 상속을 받을 수 없음
+//따라서 super()를 사용
+//부모클래스 Point2D에 자식클래스 Point3D가 상속받음
+public class Point3D extends Point2D {
+	
+	int z;//z선언(Point3D의 변수임)
+	
+	Point3D(){
+		this(10,20,30); //매개변수 3개가 있는 생성자 Point3D를 불러와서 값을 입력
+	}
+	
+	Point3D(int x, int y, int z){ // 기본적으로 생성자는 상속 불가능
+		//super(); : ()안에 없을 시 기본생성자를 상속받음
+		super(x,y); //부모클래스의 생성자(매개변수를 작성해야함)
+		this.z = z; //super뒤에 새로 선언가능, 생성자부터 상속 받아야 함
+	}
+	
+	//오버라이딩
+	String getLocation() { 
+		return "x : " + x + " y : " + y + " z : " + z;
+	}
+}
+
+//메인메소드
+Point3D a = new Point3D(); //생성자 호출
+		System.out.println(a.getLocation()); //x : 10 y : 20 z : 30
+
+
+
+---------------------------------------------------------------------------
+2>캡슐화
+연관있는 변수와 함수를 클래스로 묶는 작업
+중요한 데이터를 바꾸지 못하게 함(정보 은닉, 보호목적)
+독립성을 확보
+
+접근제어자
+접근범위순서(왼쪽부터 넓음)
+public > protected > default > private
+모든패키지,모든클래스 > 동일한 패키지, 상속받은 클래스 > 동일한 패키지 내에서만 > 동일한 클래스(this사용, 상속 불가)
+
+아무런 접근제어자를 명시하지 않으면 default , 따라서 앞에 default는 생략가능
+private는 다른 변수를 호출하기 위해 set 사용, 메인메소드에는 get
+
+
+------------------------------public과 private비교
+package accessmodifier;
+
+public class PublicvsPrivate {
+	//접근제어자가 public인 변수
+	public int Public;
+	//접근제어자가 private인 변수
+	private int Private;
+	//접근제어자가 public인 메서드
+	public void pubadd() {}
+	//접근제어자가 private인 메서드
+	private void priadd() {
+		Private = 10;  //private는 같은 클래스 내에서만 사용가능
+	}
+}
+
+//메인메서드
+package accessmodifier;
+
+public class PublicvsPrivateTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		PublicvsPrivate pvp = new PublicvsPrivate();
+		
+		pvp.Public =  10; //public은 모든 클래스, 모든 패키지 내에서 사용가능
+		//pvp.Private = 20;  //에러발생 : private변수는 선언한 클래스에서만 사용가능
+		
+		pvp.pubadd();
+		//pvp.priadd();  //에러발생 : private메소드 또한 선언한 클래스에서만 사용가능
+	
+	}
+
+}
+
+-------------------------------------public과 default비교
+//패키지 accessmodifier
+package accessmodifier;
+
+public class PublicvsDefault {
+	//접근제어자가 public인 변수
+	public int Public;
+	//접근제어자가 default인 변수
+	int Default;
+	//접근제어자가 public인 메소드
+	public void pubadd() {}
+	//접근제어자가 default인 메소드
+	void defadd() {}
+
+}
+//패키지 variable
+package variable;
+
+public class PublicvsDefault {
+	//접근제어자가 public인 변수
+	public int Public;
+	//접근제어자가 default인 변수
+	int Default;
+	//접근제어자가 public인 메소드
+	public void pubadd() {}
+	//접근제어자가 default인 메소드
+	void defadd() {}
+
+}
+
+//패키지 accessmodifier
+package accessmodifier;
+
+import variable.PublicvsDefault; //variable 패키지에서 클래스를 불러옴
+
+public class PublicvsDefaultTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		PublicvsDefault pvd = new PublicvsDefault();
+		
+		pvd.Public = 10;
+		//pvd.Default = 20; //에러, 같은 패키지 내에서는 가능 but 다른 패키지에서는 불러 올 수 없음
+		
+		pvd.pubadd();
+		//pvd.defadd();//에러, 같은 패키지 내에서는 가능 but 다른 패키지에서는 불러 올 수 없음
+	}
+}
+
+--------------------------protected와 default비교
+//패키지 variable
+package variable;
+
+public class ProtectvsDefault {
+	//접근제어자가 protected인 변수
+		protected int Protected;
+		//접근제어자가 default인 변수
+		int Default;
+		//접근제어자가 protected인 메소드
+		protected void proadd() {}
+		//접근제어자가 default인 메소드
+		void defadd() {}
+}
+
+//패키지 accessmodifier
+package accessmodifier;
+
+import variable.ProtectvsDefault;
+
+//ProtectvsDefaultTest 클래스가 다른패키지 variable에 있는 ProtectvsDefault 클래스를 상속받음
+public class ProtectvsDefaultTest extends ProtectvsDefault {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		//자식클래스 주소 호출
+		ProtectvsDefaultTest pvd = new ProtectvsDefaultTest();
+		
+		pvd.Protected = 10;
+		//pvd.Default = 20; //에러 , default는 같은 패키지만 가능하며 상속받은 클래스는 호출 불가
+		
+		pvd.proadd();
+		//pvd.defadd(); //에러 ,  default는 같은 패키지만 가능하며 상속받은 클래스는 호출 불가
+
+	}
+
+}
+
+
+
+-------------------------------------private 호출하는 법
+package accessmodifier;
+
+public class Time {
+	// 시
+	private int hour;
+	// 분
+	private int minute;
+	// 초
+	private int second;
+
+	// 생성자
+	Time(int hour, int minute, int second) { // 메인메서드에서 12,06,56을 가져옴
+		setHour(hour);     // 메인메서드에서 가져온 값을 호출함, 여기서는 12
+		setMinute(minute); // 메인메서드에서 호출함, 여기서는 06
+		setSecond(second); // 메인메서드에서 호출함, 여기서는 56
+	}
+
+	// source에서 generate getter and setter 클릭하여 생성
+	// set은 메인메서드에서 클래스로 불러올 때 사용
+	// get은 클래스에서 메인메서드로 불러올 때 사용
+	//시
+	public int getHour() {   //메소드를 통해 private 변수를 호출
+		return hour;        //private hour변수에 입력된 값을 밖으로 호출할 수 있게 해줌
+	}
+	public void setHour(int hour) { //메소드를 통해 private변수에 입력
+		// 시간이 0부터 23까지일 때만 hour에 저장하기(데이터에 대한 조건을 부여)
+		if (hour >= 0 && hour <= 23) {
+			this.hour = hour; // Time메서드에 호출해온 hour값을 private hour변수에 입력
+		}
+	}
+	//분
+	public int getMinute() {  //메소드를 통해 private 변수를 호출
+		return minute;        //private minute변수에 입력된 값을 밖으로 호출할 수 있게 해줌
+	}
+	public void setMinute(int minute) { //메소드를 통해 private변수에 입력
+		// 분이 0부터 59까지일 때만 minute에 저장하기(데이터에 대한 조건을 부여)
+		if (minute >= 0 && minute <= 59) {
+			this.minute = minute;  // Time메서드에 호출해온 minute값을 private minute변수에 입력
+		}
+	}
+	//초
+	public int getSecond() { //메소드를 통해 private 변수를 호출
+		return second;       //private second변수에 입력된 값을 밖으로 호출할 수 있게 해줌
+	}
+	public void setSecond(int second) { //메소드를 통해 private변수에 입력
+		// 분이 0부터 59까지일 때만 second에 저장하기(데이터에 대한 조건을 부여)
+		if (second >= 0 && second <= 59) {
+			this.second = second; // Time메서드에 호출해온 second값을 private second변수에 입력
+		}
+	}
+}
+
+package accessmodifier;
+
+public class Timetest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//Time 클래스를 t주소를 부여해서 호출
+		//생성자를 통해서 (hour,minute,second)를 매개변수로 받음
+		Time t = new Time(12,06,56);
+		//System.out.println(t.hour); //hour가 private변수이기 때문에 직접적인 호출은 불가능함
+		
+		//따라서 get메소드 사용하여 호출이 가능함
+		System.out.println(t.getHour()); //클래스 안에 private hour를 불러오기 위해 getHour메소드를 사용
+		System.out.println(t.getMinute());//클래스 안에 private minute를 불러오기 위해 getMinute메소드를 사용
+		System.out.println(t.getSecond());//클래스 안에 private minute를 불러오기 위해 getSecond메소드를 사용
+	}
+}
+
+
+----------------------------------------------------------------------------------------------------------------
+3>다형성
+기본형 타입은 형변환을 하여 여러 타입을 적용할 수 있는 방법이 있다.
+
+하지만 참조타입은 다른 참조타입을 적요하려면 다형성을 사용해야 한다.
+
+다형성 : 하나의 참조타입으로 여러 참조타입을 참조 할 수 있는 성질
+
+장점
+하나의 변수로 다양한 주소를 만들 수 있음 
+유지보수가 쉬우며 재사용하기 간단함
+저장메모리를 아낄 수 있음
+
+전제조건
+상속이 이루어져야 한다.
+오버라이딩 필수
+업캐스팅(자식이 부모클래스 타입으로 형변환)
+
+
+예제
+package inheritance;
+//부모클래스
+public class People {
+	void printInfo() {
+		System.out.println("나는 사람입니다.");
+	}
+	
+}
+
+package inheritance;
+//자식클래스
+public class Woman extends People  {
+	//오버라이딩
+		void printInfo() {
+			super.printInfo(); //부모클래스에서 메소드를 호출
+			System.out.println("나는 여자입니다.");
+		}
+		void makeup() {
+			System.out.println("메이크업");
+		}
+}
+
+package inheritance;
+//자식클래스
+public class Man extends People {
+	//오버라이딩
+	void printInfo() {
+		super.printInfo(); //부모클래스에서 메소드를 호출
+		System.out.println("나는 남자입니다.");
+	}
+	void enlist() {
+		System.out.println("군대감");
+	}
+}
+
+package inheritance;
+//메인메소드
+public class PeopleTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//기본 참조형 변수 호출
+/*		Woman w = new Woman();		
+		Man m = new Man();		
+		w.printInfo();
+		m.printInfo();
+		People p = new People();
+*/		
+		//다형성을 사용한 호출 : 부모클래스를 호출하여 자식클래스를 불러옴
+		//부모클래스에 비해 자식클래스가 크기가 더 작다고 보기 때문에 자동으로 호출가능
+		//People참조타입으로 Man클래스와 Woman클래스를 참조할 수 있기 때문에 아래는 다형성
+		//People 참조타입 p로 Man클래스 참조
+		People p = new Man();
+		p.printInfo();
+		//enlist()메소드 호출 안됨 = people메소드가 아니고 Man클래스 자체 메소드이기 때문
+		//따라서 각 참조형 타입으로 형변환을 해줘서 Man메소드를 호출해야함
+		((Man)p).enlist();
+		//People 참조타입 p로 Woman클래스 참조
+		p = new Woman();
+		p.printInfo();
+		//enlist()메소드 호출 안됨 = people메소드가 아니고 Woman클래스 자체 메소드이기 때문
+		//따라서  각 참조형 타입으로 형변환을 해줘서 Man메소드를 호출해야함
+		((Woman)p).makeup();
+		
+		
+	}
+
+}
+
+다형성 응용
+
+package polymorphism;
+//제품객체(부모클래스)
+public class Product {
+	//제품가격
+	int price;
+	//생성자
+	Product(int price){
+		this.price = price;
+	}
+}
+
+package polymorphism;
+//컴퓨터(자식클래스)
+public class Computer extends Product {
+	Computer(){
+		//부모클래스 Product에 있는 생성자를 불러옴, price 값에 200을 넣음
+		super(200); 
+	}
+	//toString() 메서드, Computer라는 문자를 반환시킴
+	//public String toString() : 문자열을 반환시킬 수 있는 기본메서드
+	//선언을 안 해도 기본적으로 가지고 있음, 따라서 오버라이딩
+	public String toString() {
+		return "Computer";
+	}
+}
+
+package polymorphism;
+//티비(자식클래스)
+public class Tv extends Product{
+	Tv(){
+		//부모클래스 Product에 있는 생성자를 불러옴, price 값에 100을 넣음
+		super(100);
+	}
+	//toString() 메서드, Tv라는 문자를 반환시킴
+	public String toString() {
+		return "Tv";
+	}
+}
+
+package polymorphism;
+//제품을 사는 사람 객체
+public class Buyer {
+	//소유금액
+	int money = 1000;
+	//item이라는 Product타입의 배열을 선언
+	Product[] item = new Product[5];
+	int i = 0; // item의 인덱스 값을 i변수에 저장
+	//제품을 사는 기능
+	void buy(Product p) {
+		
+		//내가 가진 금액 = 내가 가진 금액-제품가격
+		//소유금액 = 소유금액(money) - 제품가격(price)
+		money -= p.price;
+		
+		//각 Product에 상속받은 클래스들의 메서드를 불러옴
+		System.out.println(p.toString()+"을/를 구입하셨습니다.");
+		System.out.println("가격은"+p.price+"입니다.");
+		
+		//배열에 Product타입의 변수 p에다 새로운 주소가 생성될 때마다 각각 저장
+		item[i++] = p; 
+	}
+	
+}
+
+package polymorphism;
+//메인메소드
+public class ProBuyTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//Buyer 클래스 호출
+		Buyer b = new Buyer();
+		//Product p = new Computer(); 과 같은 의미
+		//이걸 매개변수 다형성이라고 부름
+		//하나의 타입으로 다양한 결과를 얻어낼 수 있음
+		b.buy(new Computer()); //Computer을/를 구입하셨습니다. //가격은100입니다.
+		b.buy(new Tv()); //Tv을/를 구입하셨습니다. //가격은100입니다.
+		
+		//buy클래스 변수 money값 출력
+		System.out.println("현재 소유한 금액은"+b.money+"입니다.");
+		
+		//item이라는 배열에 저장되어 있는 값을 출력
+		System.out.println(b.item[0].toString());//Computer
+		System.out.println(b.item[0].price);//200
+		System.out.println(b.item[1].toString());//Tv
+		System.out.println(b.item[1].price);//100
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

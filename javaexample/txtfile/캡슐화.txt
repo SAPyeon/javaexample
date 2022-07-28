@@ -1,0 +1,67 @@
+1.은행 계좌 객체인 Account 객체는 잔고(balance) 필드를 가지고 있습니다.
+balance 필드는 음수값이 될 수 없고, 최대 백만 원까지만 저장할 수 있습니다.
+외부에서 balance 필드를 마음대로 변경하지 못하도록 하고,
+0<=balance <=1,000,000 범위의 값만 가질 수 있도록 
+Account 클래스를 작성해보세요.
+
+2.SetBalance와 GetBalance 메소드를 이용하세요
+0과 1,000,000은 MIN_BALANCE와 MAX_BALANCE 상수를 선언해서 이용하세요.
+Setter의 매개값이 음수이거나 백만 원을 초과하면 현재 balance 값을 유지하세요.
+
+
+package accessmodifier;
+
+public class Account {
+	// 속성
+	// Account 클래스에서만 접근할 수 있는 인스턴스 변수
+	private int balance = 1000; // 잔고 변수 선언
+
+	// 상수 선언 : 선언과 초기화를 반드시 같이 해야함
+	final int MIN_BALANCE = 0; // 최소값 변수
+	final int MAX_BALANCE = 1000000; // 최대값 변수
+	
+	//기본생성자, 기본balance값을 1000으로 줌
+	Account(){
+		this(1000);
+	}
+	
+	Account(int balance) {
+		setBalance(balance); //setBalance메서드를 호출
+	}
+
+	public int getBalance() {
+		return balance;
+	}
+
+	public void setBalance(int balance) {
+		if (balance >= 0 && balance < 1000000) {
+			this.balance = balance;
+		}
+
+	}
+
+}
+
+
+package accessmodifier;
+
+public class AccountTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		//타입   기본변수명     값
+		//int    a   =   10; 과 같은 의미
+		//타입   참조변수명      주소
+		Account acc = new Account(-800);
+		
+		System.out.println(acc.getBalance());
+	}
+	
+	
+
+}
+
+
+
+
+
